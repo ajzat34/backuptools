@@ -14,7 +14,7 @@
 # 4 - placing new backup
 
 # Check for some stuff
-if [ $(command -v whiptail) == "" ]; then
+if [ "$(command -v whiptail)" == "" ]; then
 	echo "you need to install whiptail or add it to your path"
 	exit 1
 fi
@@ -42,11 +42,10 @@ NOINTER="NO"
 if [ "$4" == "none" ]; then
 	NOINTER="YES"
 fi
-if [ "$-" == *"i"* ]; then
+if [[ "$-" == *"i"* ]]; then
 	NOINTER="YES"
 fi
 echo "skip interactive: $NOINTER"
-DATE=$(date "+%Y-%m-%d:%HH:%MM:%SS") # change this if you want a different timestamp
 NEWFIRSTFILE="${DSTPATH}/1.tar.bz"
 count=0
 
@@ -77,7 +76,7 @@ fi
 # tar the backup
 TMPFILE="${DSTPATH}/tmp.tar.bz"
 echo "backing up to: $TMPFILE..."
-tar -zcvf $TMPFILE $SRCFILE
+tar -zcvf "$TMPFILE" "$SRCFILE"
 if [ $? != 0 ]; then
 	msgbox "BackupTools/ rotate backup" "Failed to create new backup! Aborting!"
 	exit 2
@@ -91,9 +90,9 @@ for (( i=$KEEPMAX; i>=1; i-- )); do
   echo "$FILE"
 	# move the file
   if [ -f "$FILE" ]; then
-		NEWFILE="${DSTPATH}/$[i+1].tar.bz"
+		NEWFILE="${DSTPATH}/$((i+1)).tar.bz"
 		echo " --> $NEWFILE"
-		mv $FILE $NEWFILE
+		mv "$FILE" "$NEWFILE"
 		if [ $? != 0 ]; then
 			if [ $NOINTER == "YES" ]; then
 					echo "Error rotating old backups!"
@@ -107,7 +106,7 @@ for (( i=$KEEPMAX; i>=1; i-- )); do
 done
 
 echo "Placing new backup"
-mv $TMPFILE $NEWFIRSTFILE
+mv "$TMPFILE" "$NEWFIRSTFILE"
 if [ $? != 0 ]; then
 	if [ $NOINTER == "YES" ]; then
 			echo "Failed to place new backup file!"
