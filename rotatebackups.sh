@@ -75,7 +75,7 @@ else
 fi
 
 # tar the backup
-TMPFILE="$(mktemp /tmp/rotatebackup.XXXXXXXXX.tar.bz)"
+TMPFILE="${DSTPATH}/tmp.tar.bz"
 echo "backing up to: $TMPFILE..."
 tar -zcvf $TMPFILE $SRCFILE
 if [ $? != 0 ]; then
