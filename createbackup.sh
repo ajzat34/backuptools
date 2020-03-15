@@ -5,6 +5,27 @@
 # example: ./createbackup.sh /server/data /mass/backups/server serverdata
 #  -> creates /mass/backups/server/serverdata(timestamp).tar.bz
 
+# Check for some stuff
+if [ $(command -v whiptail) == "" ]; then
+	echo "you need to install whiptail or add it to your path"
+	exit 1
+fi
+
+if [ "$1" == "" ]; then
+	echo "Missing source path"
+	exit 1
+fi
+
+if [ "$2" == "" ]; then 
+        echo "Missing destination path"
+        exit 1
+fi
+
+if [ "$3" == "" ]; then
+        echo "Missing prefix"
+        exit 1
+fi
+
 # Set box size
 HEIGHT=20
 WIDTH=80
