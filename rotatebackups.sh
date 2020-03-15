@@ -84,15 +84,15 @@ if [ $? != 0 ]; then
 fi
 
 # musical chairs
-echo "shifting old backups"
+echo "Shifting old backups:"
 for (( i=$KEEPMAX; i>=1; i-- )); do
 	# gen the paths
   FILE="${DSTPATH}/${i}.tar.bz"
-  echo "Checking $FILE"
+  echo "$FILE"
 	# move the file
   if [ -f "$FILE" ]; then
 		NEWFILE="${DSTPATH}/$[i+1].tar.bz"
-		echo "... -> $NEWFILE"
+		echo " --> $NEWFILE"
 		mv $FILE $NEWFILE
 		if [ $? != 0 ]; then
 			if [ $NOINTER == "YES" ]; then
@@ -106,8 +106,7 @@ for (( i=$KEEPMAX; i>=1; i-- )); do
   fi
 done
 
-sleep 1
-echo "placing new backup"
+echo "Placing new backup"
 mv $TMPFILE $NEWFIRSTFILE
 if [ $? != 0 ]; then
 	if [ $NOINTER == "YES" ]; then
