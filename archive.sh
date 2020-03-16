@@ -61,4 +61,7 @@ tar -zcvf $DESTFILE $SRCFILE
 if [ $? == 0 ]; then
 	msgbox "BackupTools/ Create permanent backup" "Successful"
 	exit 0
+else
+	msgbox "BackupTools/ Create permanent backup" "Archive Failed"
+	exit 2
 fi
