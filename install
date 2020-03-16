@@ -7,26 +7,6 @@ BKARCHIVEURL="https://raw.githubusercontent.com/ajzat34/backuptools/master/bkarc
 BKROTATEURL="https://raw.githubusercontent.com/ajzat34/backuptools/master/bkrotate.sh"
 INSTALLTO="/usr/local/bin"
 
-# Check for some stuff
-if [ $(command -v curl) == "" ]; then
-	echo "you need to install curl and/or add it to your path"
-	exit 2
-fi
-if [ $(command -v whiptail) == "" ]; then
-	echo "you need to install whiptail and/or add it to your path"
-	exit 2
-fi
-
-if [ $(command -v bkarchive) != "" ]; then
-  echo "you already have bkarchive installed $(command -v bkarchive)"
-  exit 2
-fi
-if [ $(command -v bkrotate) != "" ]; then
-  echo "you already have bkrotate installed $(command -v bkrotate)"
-  exit 2
-fi
-
-
 echo "downloading $BKARCHIVEURL to $INSTALLTO/bkarchive"
 curl "${BKARCHIVEURL}" -o "${INSTALLTO}/bkarchive"
 if [ $? != 0 ]; then
