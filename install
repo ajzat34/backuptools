@@ -34,14 +34,14 @@ fi
 
 
 echo "downloading $BKARCHIVEURL to $INSTALLTO/bkarchive"
-curl "$BKARCHIVEURL" -o "$INSTALLTO/bkarchive"
+curl "${BKARCHIVEURL}" -o "${INSTALLTO}/bkarchive"
 if [ $? != 0 ]; then
   echo "failed!"
   exit 4
 fi
 
 echo "downloading $BKROTATEURL to $INSTALLTO/bkrotate"
-curl "$BKROTATEURL" -o "$INSTALLTO/bkrotate"
+curl "${BKROTATEURL}" -o "${INSTALLTO}/bkrotate"
 if [ $? != 0 ]; then
   echo "failed!"
   exit 4
