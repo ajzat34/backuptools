@@ -4,6 +4,10 @@
 echo "This script installs bkarchive and bkrotate to /usr/local/bin"
 umask 775
 
+BKARCHIVEURL="https://raw.githubusercontent.com/ajzat34/backuptools/master/bkarchive.sh"
+BKROTATEURL="https://raw.githubusercontent.com/ajzat34/backuptools/master/bkrotate.sh"
+INSTALLTO="/usr/local/bin"
+
 if [ "$EUID" -ne 0 ]
   then echo "please run as root"
   exit
@@ -29,19 +33,19 @@ if [ $(command -v bkrotate) != "" ]; then
 fi
 
 
-echo "downloading https://raw.githubusercontent.com/ajzat34/backuptools/master/bkarchive.sh to /usr/local/bin/bkarchive"
-curl https://raw.githubusercontent.com/ajzat34/backuptools/master/bkarchive.sh -o /usr/local/bin/bkarchive"
+echo "downloading $BKARCHIVEURL to $INSTALLTO/bkarchive"
+curl "$BKARCHIVEURL" -o "$INSTALLTO/bkarchive"
 if [ $? != 0 ]; then
   echo "failed!"
   exit 4
 fi
 
-echo "downloading https://raw.githubusercontent.com/ajzat34/backuptools/master/bkrotate.sh to /usr/local/bin/bkrotate"
-curl https://raw.githubusercontent.com/ajzat34/backuptools/master/bkrotate.sh -o /usr/local/bin/bkrotate"
+echo "downloading $BKROTATEURL to $INSTALLTO/bkrotate"
+curl "$BKROTATEURL" -o "$INSTALLTO/bkrotate"
 if [ $? != 0 ]; then
   echo "failed!"
   exit 4
 fi
 
-exit 0
+exit
 
