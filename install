@@ -1,0 +1,4 @@
+#!/bin/bash
+git clone ..
+cd backuptools
+chmod +x *.sh
