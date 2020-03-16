@@ -7,6 +7,8 @@ BKARCHIVEURL="https://raw.githubusercontent.com/ajzat34/backuptools/master/bkarc
 BKROTATEURL="https://raw.githubusercontent.com/ajzat34/backuptools/master/bkrotate.sh"
 INSTALLTO="/usr/local/bin"
 
+unmask 0775
+
 echo "downloading $BKARCHIVEURL to $INSTALLTO/bkarchive"
 curl "${BKARCHIVEURL}" -o "${INSTALLTO}/bkarchive"
 if [ $? != 0 ]; then
