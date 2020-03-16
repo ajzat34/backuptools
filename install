@@ -2,16 +2,10 @@
 
 # This script installs bkarchive and bkrotate
 echo "This script installs bkarchive and bkrotate to /usr/local/bin"
-#umask 775
 
 BKARCHIVEURL="https://raw.githubusercontent.com/ajzat34/backuptools/master/bkarchive.sh"
 BKROTATEURL="https://raw.githubusercontent.com/ajzat34/backuptools/master/bkrotate.sh"
 INSTALLTO="/usr/local/bin"
-
-if [ "$EUID" -ne 0 ]
-  then echo "please run as root"
-  exit
-fi
 
 # Check for some stuff
 if [ $(command -v curl) == "" ]; then
