@@ -1,4 +1,4 @@
 #!/bin/bash
-git clone ..
+git clone https://github.com/ajzat34/backuptools.git
 cd backuptools
 chmod +x *.sh
