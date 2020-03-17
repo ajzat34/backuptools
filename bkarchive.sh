@@ -22,7 +22,7 @@ if [ "$2" == "" ]; then
 fi
 
 if [ "$3" == "" ]; then
-        echo "Missing prefix"
+        echo "Missing Name/prefix"
         exit 1
 fi
 
