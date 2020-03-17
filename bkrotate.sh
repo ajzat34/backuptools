@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This scripts creates a single backup, timestamped with the date
+# This scripts creates rotating backups
 # usage: ./createbackup.sh source destination_dir count [nointer] # nointer means non-interactive
 # example: ./createbackup.sh /server/data /mass/backups/server 5
 # -> moves /mass/backups/1.tar.bz -> /mass/backups/2.tar.bz ect.. up to 5 after the main backup, so 6 will be kept including the new one
