@@ -88,8 +88,12 @@ if [ ! -d "$DSTPATH" ]; then
   exit 2
 fi
 
+SRCDIR=$(dirname "$SRCFILE")
+SRCLOCAL=$(basename "$SRCFILE")
+echo "running from dir: $SRCDIR, file: $SRCLOCAL"
+
 echo "creating tmpfile at $TMPFILE"
-tar -zcvf "$TMPFILE" "$SRCFILE"
+tar -zcvf "$TMPFILE" -C "$SRCDIR" -h "$SRCLOCAL" 
 if [ $? == 0 ]; then
 	echo " -> successful"
 else
