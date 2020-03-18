@@ -24,11 +24,6 @@ if [ "$2" == "" ]; then
         exit 1
 fi
 
-SRCFILE="$1"
-DSTPATH="$2"
-DATE=$(date "+%Y-%m-%d:%Hh_%Mm_%Ss")
-DESTFILE="${DSTPATH}/archive_${DATE}.tar.bz"
-
 # non-interactive stuff
 INTERACT="YES"
 if [ "$3" == "none" ]; then
@@ -38,17 +33,18 @@ if [[ "$-" == *"i"* ]]; then
 	INTERACT="NONE"
 fi
 
-if [ "$INTERACT" == "YES" ]; then
-	HEIGHT=15
-	let WIDTH=$(tput cols)-6
-fi
+
+SRCFILE="$1"
+DSTPATH="$2"
+DATE=$(date "+%Y-%m-%d:%Hh_%Mm_%Ss")
+DESTFILE="${DSTPATH}/archive_${DATE}.tar.bz"
 
 prompt ()
 {
 	if [ "$INTERACT" == "YES" ]; then
 		whiptail \
 			--title "backuptools/bkarchive" \
-			--"$1" "$2" "$HEIGHT" "$WIDTH"
+			--"$1" "$2" "" ""
 		return $?
 	else
 		printf "$2\n"
@@ -56,18 +52,33 @@ prompt ()
 	fi
 }
 
-checkexit () 
+checkexit ()
 {
-	if [ $? == $1 ]; then
-		exit $2
+	if [ $? == "$1" ]; then
+		exit "$2"
 	fi
 }
+
 
 prompt "yesno" "Is this ok?\n\n - Source File: $SRCFILE\n - Dest File: $DESTFILE\n"
 checkexit 1 1
 
+echo "checking source"
+if [ ! -e "$SRCFILE" ]; then
+  prompt "msgbox" "Source: $SRCFILE doesnt seem to exist..."
+  exit 2
+fi
+if [ ! -d $DSTPATH ]; then
+  prompt "msgbox" "Directory (Destination): $DSTPATH doesnt seem to exist..."
+  exit 2
+fi
+
+SRCDIR=$(dirname "$SRCFILE")
+SRCLOCAL=$(basename "$SRCFILE")
+echo "running from dir: $SRCDIR, file: $SRCLOCAL"
+
 echo "creating tar backup"
-tar -zcvf $DESTFILE $SRCFILE
+tar -zcvf "$DESTFILE" -C "$SRCDIR" -h "$SRCLOCAL" 
 if [ $? == 0 ]; then
 	prompt "msgbox" "Successful"
 else
